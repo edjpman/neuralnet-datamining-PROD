@@ -283,7 +283,7 @@ print(X_train)
 
 
 #--------------------------------
-###Modeling Training and Accuracy Test###
+###Model Training and General Accuracy Test###
 #--1) A MLP feedforward model object is created using the standard set parameters
 #--2) The general accuracy is then computed through the gen_accuracy method
 
@@ -321,7 +321,7 @@ full_predictions_df
 
 
 #--------------------------------
-###Assessing Accuracy Density###
+###Assessing Prediction Density for Accuracy###
 #--1) Creating a new nn_model object and calling the density_acc method
 
 dens = nn_model(pltdf=full_predictions_df)
@@ -331,7 +331,7 @@ dens.density_acc()
 
 
 #--------------------------------
-###Testing True Target Accuracy for Future Unseen Data###
+###Testing True Target Accuracy on Future Unseen Data###
 #--1) Following the same steps as the "data preprocessing" stage previous except on a future set of unseen data
 #--2) The former model is the used to predict the binary classification 
 #--3) The predictions are formatted into a similar dataframe as before and filtered to compute the true positive accuracy
@@ -379,7 +379,7 @@ print(f'Accuracy:{truepred/tot}')
 
 
 #--------------------------------
-###Target Predictions Viz###
+###Target Predictions Visualization###
 #--1) Creating a new nn_model object and calling the tgt_acc method
 
 tgt = nn_model(pltdf=merged_df)
