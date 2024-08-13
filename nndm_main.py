@@ -14,7 +14,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import accuracy_score
-from tensorflow.keras.utils import plot_model
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -23,7 +22,7 @@ os.environ["KERAS_BACKEND"] = "tensorflow"
 
 
 ##Helper Class##
-#--stockdf: Loads in the historical stock data from the yfinance library
+#--stockdf: loads in the historical stock data from the yfinance library
 #---Uses a framework to focus on price across various stages of the trading day: i.e. close, open, high, low, etc.
 #---Additional framework placeholders for future development
 
@@ -91,7 +90,7 @@ class finHelp:
 
 ##Feature Engineering Class##
 #--Leverages previous arguments made during the data sourcing for additional preprocessing
-#--rsi: Calculates the relative strength index
+#--rsi: calculates the relative strength index
 #--targetvar: calculates a standard deviation for the target variable
 
 class deriveVar(finHelp):
@@ -129,7 +128,7 @@ class deriveVar(finHelp):
 
 ##Neural Network Preprocessing Class##
 #--Processes the data so the model can leverage it for computation
-#--preprocess_time: creates a static method to process the cyclical nature of timestamp data before scaling
+#--preprocess_time: a static method to process the cyclical nature of timestamp data before scaling
 #--tt_split: splits the data into training/testing datasets of features and targets, processes timestamp data, and performs a scaling of the features
 #--scaler: performs preprocessing to run the neural network on production data
 class ml_preprocess:
@@ -250,7 +249,7 @@ class nn_model:
 
 #--------------------------------
 ###Data Preprocessing###
-#--1) Selecting a specific ticker symbol and date range for the training. Post COVID dates were specifically chose to reduce bias. 
+#--1) Selecting a specific ticker symbol and date range for the training. Post COVID dates were specifically chosen to reduce bias. 
 #--2) Class objects initiated for sourcing and preprocessing.
 #--3) Preprocessed data is finally joined, scaled and split into the training/testing sets.          
 
