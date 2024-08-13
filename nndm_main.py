@@ -1,4 +1,5 @@
 
+#Importing the necessary libraries 
 
 import yfinance as yf
 import pandas as pd
@@ -20,6 +21,11 @@ import seaborn as sns
 
 os.environ["KERAS_BACKEND"] = "tensorflow"
 
+
+##Helper Class##
+#--stockdf: Loads in the historical stock data from the yfinance library
+#---Uses a framework to focus on price across various stages of the trading day: i.e. close, open, high, low, etc.
+#---Additional framework placeholders for future development
 
 class finHelp:
 
@@ -72,7 +78,7 @@ class finHelp:
                 hstprice['Mean'] = mnprice
                 return hstprice
             else:
-                return ValueError('Must pass "close" or "open"')
+                return ValueError('Must pass "close", "open", "high", "low", "mean"')
 
         elif self.type == 'volume':
             hstvol = tkr_fetch.history(start=self.sdate,end=self.edate,interval=self.intv)
@@ -82,6 +88,11 @@ class finHelp:
         else:
             return ValueError('Must pass "historical_price" or "volume"')
 
+
+##Feature Engineering Class##
+#--Leverages previous arguments made during the data sourcing for additional preprocessing
+#--rsi: Calculates the relative strength index
+#--targetvar: calculates a standard deviation for the target variable
 
 class deriveVar(finHelp):
 
@@ -116,7 +127,11 @@ class deriveVar(finHelp):
         return std_dev
 
 
-
+##Neural Network Preprocessing Class##
+#--Processes the data so the model can leverage it for computation
+#--preprocess_time: creates a static method to process the cyclical nature of timestamp data before scaling
+#--tt_split: splits the data into training/testing datasets of features and targets, processes timestamp data, and performs a scaling of the features
+#--scaler: performs preprocessing to run the neural network on production data
 class ml_preprocess:
 
     def __init__(self,df):
@@ -158,6 +173,12 @@ class ml_preprocess:
 
 
 
+##Neural Network Preprocessing Class##
+#--Constructs the model itself and the various accuracy measures
+#--feedforward_construct: constructs the MLP feedforward neural network
+#--gen_accuracy: computes the general accuracy for training and testing sets 
+#--density_acc: creates a density plot to assist in visualizing the accuracy of the binary classification
+#--tgt_acc: plots the target and predicted values against production level data to assess classification accuracy
 
 class nn_model:
 
