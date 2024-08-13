@@ -249,8 +249,10 @@ class nn_model:
 
 
 #--------------------------------
-###TRAINING RUN###
-    
+###Data Preprocessing###
+#--1) Selecting a specific ticker symbol and date range for the training. Post COVID dates were specifically chose to reduce bias. 
+#--2) Class objects initiated for sourcing and preprocessing.
+#--3) Preprocessed data is finally joined, scaled and split into the training/testing sets.          
 
 ticker = 'SPY'
 start_date = '2023-01-01'
@@ -283,6 +285,8 @@ print(X_train)
 
 #--------------------------------
 ###Modeling Training and Accuracy Test###
+#--1) A MLP feedforward model object is created using the standard set parameters
+#--2) The general accuracy is then computed through the gen_accuracy method
 
 mlp = nn_model(learning_rate=0.01,epochs=15,batch_size=32)
 
@@ -296,7 +300,8 @@ print('Testing accuracy: %s' % test_acc)
 
 #--------------------------------
 ###Assessing True vs Predicted Probabilities###
-
+#--1) The train and test set predictions are converted into a dataframe indexed on their original index from the 
+#---training and testing sets for sequential order and compared to the true prediction
 
 y_train_pred_proba = model.predict(X_train)
 y_test_pred_proba = model.predict(X_test)
@@ -318,7 +323,7 @@ full_predictions_df
 
 #--------------------------------
 ###Assessing Accuracy Density###
-
+#--1) Creating a new nn_model object and calling the density_acc method
 
 dens = nn_model(pltdf=full_predictions_df)
 
@@ -326,12 +331,11 @@ dens.density_acc()
 
 
 
-
-
-
 #--------------------------------
 ###Testing True Target Accuracy for Future Unseen Data###
-
+#--1) Following the same steps as the "data preprocessing" stage previous except on a future set of unseen data
+#--2) The former model is the used to predict the binary classification 
+#--3) The predictions are formatted into a similar dataframe as before and filtered to compute the true positive accuracy
 
 ticker = 'SPY'
 start_date = '2024-05-01'
@@ -377,6 +381,7 @@ print(f'Accuracy:{truepred/tot}')
 
 #--------------------------------
 ###Target Predictions Viz###
+#--1) Creating a new nn_model object and calling the tgt_acc method
 
 tgt = nn_model(pltdf=merged_df)
 
